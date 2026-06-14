@@ -1,0 +1,51 @@
+Assets/_Project は、このゲーム本体で使う自作ファイルをまとめる場所です。
+
+Scenes/
+ゲームのシーンを置く場所です。
+ステージ、タイトル画面、テスト用シーンなどをここに追加していきます。
+現在は SampleScene.unity を置いています。
+
+Scripts/
+C# スクリプトを置く場所です。
+役割ごとにさらにフォルダを分けます。
+
+Scripts/Player/
+プレイヤー操作やプレイヤー状態管理に関するスクリプトを置く場所です。
+現在は PlayerController.cs を置いています。
+
+Scripts/Camera/
+カメラ追従やカメラ演出など、カメラ制御に関するスクリプトを置く場所です。
+現在は CameraController.cs を置いています。
+
+Input/
+入力設定を置く場所です。
+キーボード、ゲームパッド、操作アクションの定義などを管理します。
+現在は InputSystem_Actions.inputactions を置いています。
+
+Physics/
+2D 物理マテリアルなど、物理挙動に関係する設定を置く場所です。
+床の摩擦、壁の滑りやすさ、反発などに関係するファイルを管理します。
+
+Rendering/
+描画、見た目、レンダーパイプライン関連の設定を置く場所です。
+現在は DefaultVolumeProfile.asset と UniversalRenderPipelineGlobalSettings.asset を置いています。
+
+Art/
+画像素材を置く場所です。
+キャラクター、背景、ステージ素材などを管理します。
+
+Art/Characters/
+キャラクター画像やスプライトを置く場所です。
+stand_1.png は将来的にここへ置く想定です。
+
+Art/Stages/
+ステージ画像や背景素材を置く場所です。
+pre_stage1.jpg は将来的にここへ置く想定です。
+
+Settings/
+Unity や URP の設定を置く場所です。
+ゲーム本体の素材とは少し性質が違うため、Assets/_Project には入れず、Assets/Settings のまま管理します。
+
+_Recovery/
+Unity の復旧用データを置く場所です。
+普段の作業では基本的に触らない場所です。

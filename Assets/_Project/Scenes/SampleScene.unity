@@ -942,7 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19bbc8bb7ba02564c938a83e013a21aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  speed: 2
+  speed: 4
   runSpeed: 7
   jumpForce: 18
   doubleTapTime: 0.3
