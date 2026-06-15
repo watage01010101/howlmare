@@ -2,6 +2,11 @@ using UnityEngine;
 
 public partial class PlayerController
 {
+    private const string GroundTag = "Ground";
+    private const float GroundNormalThreshold = 0.5f;
+    private const float CeilingNormalThreshold = -0.5f;
+    private const float WallNormalThreshold = 0.1f;
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag(GroundTag))
@@ -37,12 +42,11 @@ public partial class PlayerController
     private void HandleGroundContact()
     {
         isGrounded = true;
-        groundCoyoteTimer = groundCoyoteTime;
         canAirJump = true;
 
         if (rb.linearVelocity.y < 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            SetVelocityY(0f);
         }
     }
 
@@ -50,7 +54,7 @@ public partial class PlayerController
     {
         if (rb.linearVelocity.y > 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            SetVelocityY(0f);
         }
     }
 
@@ -66,7 +70,6 @@ public partial class PlayerController
 
         isTouchingWall = true;
         wallDirection = detectedWallDirection;
-        wallCoyoteTimer = wallCoyoteTime;
     }
 
     private void OnCollisionExit2D(Collision2D collision)

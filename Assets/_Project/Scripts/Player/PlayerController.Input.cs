@@ -5,6 +5,7 @@ public partial class PlayerController
     private void HandleInput()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
+        isJumpHeld = Input.GetKey(KeyCode.Space);
 
         if (moveInput != 0)
         {
@@ -17,6 +18,11 @@ public partial class PlayerController
         {
             jumpRequest = true;
         }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            jumpReleased = true;
+        }
     }
 
     private void HandleRunInput()
@@ -27,7 +33,7 @@ public partial class PlayerController
         {
             if (direction == lastDirection && Time.time - lastTapTime < doubleTapTime)
             {
-                isRunning = true;
+                isDoubleTapRunning = true;
             }
 
             lastDirection = direction;
@@ -35,28 +41,18 @@ public partial class PlayerController
         }
 
         bool isCtrlPressed = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        bool doubleTapRunning = isRunning;
-
-        isRunning = false;
-
-        if (isCtrlPressed)
-        {
-            isRunning = true;
-        }
 
         if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
         {
-            isRunning = false;
-        }
-        else if (doubleTapRunning)
-        {
-            isRunning = true;
+            isDoubleTapRunning = false;
         }
 
         if (!isCtrlPressed && Time.time - lastMoveTime > runGraceTime)
         {
-            isRunning = false;
+            isDoubleTapRunning = false;
         }
+
+        isRunning = isCtrlPressed || isDoubleTapRunning;
     }
 
     private int GetPressedHorizontalDirection()

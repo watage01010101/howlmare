@@ -2,6 +2,9 @@ using UnityEngine;
 
 public partial class PlayerController
 {
+    private const float StopInputThreshold = 0.01f;
+    private const float AirHoldDecelerationMultiplier = 0.1f;
+
     private void Move()
     {
         float currentSpeed = isRunning ? runSpeed : speed;
@@ -33,7 +36,7 @@ public partial class PlayerController
 
     private float GetDecelerationRate()
     {
-        if (!isGrounded && Input.GetKey(KeyCode.Space))
+        if (!isGrounded && isJumpHeld)
         {
             return deceleration * AirHoldDecelerationMultiplier;
         }

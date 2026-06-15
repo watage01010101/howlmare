@@ -2,6 +2,12 @@ using UnityEngine;
 
 public partial class PlayerController
 {
+    private const float JumpCutMultiplier = 0.5f;
+    private const float AirJumpMultiplier = 0.9f;
+    private const float HoldJumpBoost = 10f;
+    private const float WallJumpHorizontalForce = 8f;
+    private const float WallSlideSpeed = -2f;
+
     private void Jump()
     {
         if (!jumpRequest)
@@ -24,7 +30,7 @@ public partial class PlayerController
 
         jumpRequest = false;
 
-        if (Input.GetKey(KeyCode.Space) && rb.linearVelocity.y > 0 && !jumpReleased)
+        if (isJumpHeld && rb.linearVelocity.y > 0 && !jumpReleased)
         {
             rb.linearVelocity += Vector2.up * HoldJumpBoost * Time.fixedDeltaTime;
         }
@@ -32,13 +38,13 @@ public partial class PlayerController
 
     private void GroundJump()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        SetVelocityY(jumpForce);
         canAirJump = true;
     }
 
     private void AirJump()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * AirJumpMultiplier);
+        SetVelocityY(jumpForce * AirJumpMultiplier);
         canAirJump = false;
     }
 
@@ -46,22 +52,19 @@ public partial class PlayerController
     {
         float jumpX = -wallDirection * WallJumpHorizontalForce;
 
-        rb.linearVelocity = new Vector2(jumpX, jumpForce);
+        SetVelocity(jumpX, jumpForce);
         isTouchingWall = false;
         canAirJump = true;
     }
 
-    private void UpdateCoyoteTimers()
+    private void SetVelocityY(float velocityY)
     {
-        if (groundCoyoteTimer > 0)
-        {
-            groundCoyoteTimer -= Time.fixedDeltaTime;
-        }
+        SetVelocity(rb.linearVelocity.x, velocityY);
+    }
 
-        if (wallCoyoteTimer > 0)
-        {
-            wallCoyoteTimer -= Time.fixedDeltaTime;
-        }
+    private void SetVelocity(float velocityX, float velocityY)
+    {
+        rb.linearVelocity = new Vector2(velocityX, velocityY);
     }
 
     private void ApplyJumpCut()
@@ -73,7 +76,7 @@ public partial class PlayerController
 
         if (rb.linearVelocity.y > 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * JumpCutMultiplier);
+            SetVelocityY(rb.linearVelocity.y * JumpCutMultiplier);
         }
 
         jumpReleased = false;
@@ -83,7 +86,7 @@ public partial class PlayerController
     {
         if (isTouchingWall && !isGrounded && rb.linearVelocity.y < 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, WallSlideSpeed);
+            SetVelocityY(WallSlideSpeed);
             return;
         }
 
