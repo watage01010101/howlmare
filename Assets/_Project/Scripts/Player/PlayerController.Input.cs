@@ -1,25 +1,26 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public partial class PlayerController
 {
     private void HandleInput()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
-        isJumpHeld = Input.GetKey(KeyCode.Space);
+        moveInput = GetHorizontalInput();
+        isJumpHeld = IsJumpPressed();
 
-        if (moveInput != 0)
+        if (moveInput != 0f)
         {
             lastMoveTime = Time.time;
         }
 
         HandleRunInput();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (WasJumpPressedThisFrame())
         {
             jumpRequest = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (WasJumpReleasedThisFrame())
         {
             jumpReleased = true;
         }
@@ -40,35 +41,119 @@ public partial class PlayerController
             lastTapTime = Time.time;
         }
 
-        bool isCtrlPressed = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+        bool isSprintPressed = IsSprintPressed();
 
-        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl))
+        if (WasSprintReleasedThisFrame())
         {
             isDoubleTapRunning = false;
         }
 
-        if (!isCtrlPressed && Time.time - lastMoveTime > runGraceTime)
+        if (!isSprintPressed && Time.time - lastMoveTime > runGraceTime)
         {
             isDoubleTapRunning = false;
         }
 
-        isRunning = isCtrlPressed || isDoubleTapRunning;
+        isRunning = isSprintPressed || isDoubleTapRunning;
     }
 
     private int GetPressedHorizontalDirection()
     {
-        int direction = 0;
+        Keyboard keyboard = Keyboard.current;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (keyboard == null)
         {
-            direction = -1;
+            return 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (keyboard.aKey.wasPressedThisFrame || keyboard.leftArrowKey.wasPressedThisFrame)
         {
-            direction = 1;
+            return -1;
         }
 
-        return direction;
+        if (keyboard.dKey.wasPressedThisFrame || keyboard.rightArrowKey.wasPressedThisFrame)
+        {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    private float GetHorizontalInput()
+    {
+        float input = 0f;
+        Keyboard keyboard = Keyboard.current;
+
+        if (keyboard != null)
+        {
+            if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed)
+            {
+                input -= 1f;
+            }
+
+            if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed)
+            {
+                input += 1f;
+            }
+        }
+
+        Gamepad gamepad = Gamepad.current;
+
+        if (gamepad != null)
+        {
+            input += gamepad.leftStick.x.ReadValue();
+        }
+
+        return Mathf.Clamp(input, -1f, 1f);
+    }
+
+    private bool IsJumpPressed()
+    {
+        Keyboard keyboard = Keyboard.current;
+        Gamepad gamepad = Gamepad.current;
+
+        return (keyboard != null && keyboard.spaceKey.isPressed)
+            || (gamepad != null && gamepad.buttonSouth.isPressed);
+    }
+
+    private bool WasJumpPressedThisFrame()
+    {
+        Keyboard keyboard = Keyboard.current;
+        Gamepad gamepad = Gamepad.current;
+
+        return (keyboard != null && keyboard.spaceKey.wasPressedThisFrame)
+            || (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame);
+    }
+
+    private bool WasJumpReleasedThisFrame()
+    {
+        Keyboard keyboard = Keyboard.current;
+        Gamepad gamepad = Gamepad.current;
+
+        return (keyboard != null && keyboard.spaceKey.wasReleasedThisFrame)
+            || (gamepad != null && gamepad.buttonSouth.wasReleasedThisFrame);
+    }
+
+    private bool IsSprintPressed()
+    {
+        Keyboard keyboard = Keyboard.current;
+        Gamepad gamepad = Gamepad.current;
+
+        return (keyboard != null
+                && (keyboard.leftCtrlKey.isPressed
+                    || keyboard.rightCtrlKey.isPressed
+                    || keyboard.leftShiftKey.isPressed))
+            || (gamepad != null && gamepad.leftStickButton.isPressed);
+    }
+
+    private bool WasSprintReleasedThisFrame()
+    {
+        Keyboard keyboard = Keyboard.current;
+        Gamepad gamepad = Gamepad.current;
+
+        return (keyboard != null
+                && (keyboard.leftCtrlKey.wasReleasedThisFrame
+                    || keyboard.rightCtrlKey.wasReleasedThisFrame
+                    || keyboard.leftShiftKey.wasReleasedThisFrame))
+            || (gamepad != null && gamepad.leftStickButton.wasReleasedThisFrame);
     }
 }

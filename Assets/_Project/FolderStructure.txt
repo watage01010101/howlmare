@@ -1,51 +1,44 @@
-Assets/_Project は、このゲーム本体で使う自作ファイルをまとめる場所です。
+Assets/_Project is the root folder for game-specific assets used by this project.
 
 Scenes/
-ゲームのシーンを置く場所です。
-ステージ、タイトル画面、テスト用シーンなどをここに追加していきます。
-現在は SampleScene.unity を置いています。
+Stores game scenes such as stages, title screens, and test scenes.
+Current scene: SampleScene.unity.
 
 Scripts/
-C# スクリプトを置く場所です。
-役割ごとにさらにフォルダを分けます。
+Stores C# scripts, grouped by responsibility.
 
 Scripts/Player/
-プレイヤー操作やプレイヤー状態管理に関するスクリプトを置く場所です。
-現在は PlayerController.cs を置いています。
+Stores scripts related to player control and player state.
+Current main controller: PlayerController.cs.
 
 Scripts/Camera/
-カメラ追従やカメラ演出など、カメラ制御に関するスクリプトを置く場所です。
-現在は CameraController.cs を置いています。
+Stores scripts related to camera following and camera behavior.
+Current controller: CameraController.cs.
 
 Input/
-入力設定を置く場所です。
-キーボード、ゲームパッド、操作アクションの定義などを管理します。
-現在は InputSystem_Actions.inputactions を置いています。
+Stores input settings and action definitions.
+Current input actions asset: InputSystem_Actions.inputactions.
 
 Physics/
-2D 物理マテリアルなど、物理挙動に関係する設定を置く場所です。
-床の摩擦、壁の滑りやすさ、反発などに関係するファイルを管理します。
+Stores 2D physics materials and other physics-related settings.
 
 Rendering/
-描画、見た目、レンダーパイプライン関連の設定を置く場所です。
-現在は DefaultVolumeProfile.asset と UniversalRenderPipelineGlobalSettings.asset を置いています。
+Stores rendering and URP-related settings.
+Current assets: DefaultVolumeProfile.asset and UniversalRenderPipelineGlobalSettings.asset.
 
 Art/
-画像素材を置く場所です。
-キャラクター、背景、ステージ素材などを管理します。
+Intended location for visual assets such as characters, backgrounds, and stage art.
 
 Art/Characters/
-キャラクター画像やスプライトを置く場所です。
-stand_1.png は将来的にここへ置く想定です。
+Intended location for character images and sprites.
+stand_1.png should eventually be moved here.
 
 Art/Stages/
-ステージ画像や背景素材を置く場所です。
-pre_stage1.jpg は将来的にここへ置く想定です。
+Intended location for stage images and background assets.
+pre_stage1.jpg should eventually be moved here.
 
 Settings/
-Unity や URP の設定を置く場所です。
-ゲーム本体の素材とは少し性質が違うため、Assets/_Project には入れず、Assets/Settings のまま管理します。
+Unity and URP settings are kept in Assets/Settings for now.
 
 _Recovery/
-Unity の復旧用データを置く場所です。
-普段の作業では基本的に触らない場所です。
+Stores Unity recovery data. Do not edit during normal project work.
