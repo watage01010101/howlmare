@@ -4359,7 +4359,7 @@ PrefabInstance:
       objectReference: {fileID: 888942448}
     - target: {fileID: 7883683656697234632, guid: 17bef985ac21b1948a3016930755ad9d, type: 3}
       propertyPath: m_Name
-      value: 'ResumeButton '
+      value: ResumeButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
