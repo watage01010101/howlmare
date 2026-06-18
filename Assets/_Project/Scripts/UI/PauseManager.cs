@@ -45,6 +45,6 @@ public class PauseManager : MonoBehaviour
     public void ReturnToHome()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Home");
+        SceneManager.LoadScene("HomeScene");
     }
 }
