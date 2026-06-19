@@ -3,9 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class HomeMenu : MonoBehaviour
 {
-    [SerializeField] private string mapSceneName = "TestMap01";
-
-    public void SelectMap()
+    public void SelectMap(string mapSceneName)
     {
         SceneManager.LoadScene(mapSceneName);
     }

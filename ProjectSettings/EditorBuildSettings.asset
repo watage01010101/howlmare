@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Home/HomeScene.unity
     guid: 63f3301b0971b124793054b51d93cc2e
+  - enabled: 1
+    path: Assets/_Project/Scenes/Maps/Yamamoto/TestMap02.unity
+    guid: 4e1455f484c8b054da40d9860e2da64c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
