@@ -7,13 +7,26 @@ Current scene: SampleScene.unity.
 Scripts/
 Stores C# scripts, grouped by responsibility.
 
-Scripts/Player/
-Stores scripts related to player control and player state.
-Current main controller: PlayerController.cs.
-
 Scripts/Camera/
-Stores scripts related to camera following and camera behavior.
-Current controller: CameraController.cs.
+CameraController.cs
+
+Scripts/Player/
+PlayerController.cs
+PlayerController.Input.cs
+PlayerController.Movement.cs
+PlayerController.Jump.cs
+PlayerController.Collision.cs
+PlayerController.Attack.cs
+
+Scripts/Enemy/
+EnemyHealth.cs
+EnemyController.cs
+EnemyController.Movement.cs
+EnemyController.Attack.cs
+
+Scripts/UI/
+HomeMenu.cs
+PauseManager.cs
 
 Input/
 Stores input settings and action definitions.
