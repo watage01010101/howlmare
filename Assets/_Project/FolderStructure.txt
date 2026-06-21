@@ -21,8 +21,6 @@ PlayerController.Attack.cs
 Scripts/Enemy/
 EnemyHealth.cs
 EnemyController.cs
-EnemyController.Movement.cs
-EnemyController.Attack.cs
 
 Scripts/UI/
 HomeMenu.cs

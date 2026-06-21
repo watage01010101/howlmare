@@ -17,6 +17,12 @@ public partial class PlayerController : MonoBehaviour
     public float doubleTapTime = 0.2f;
     public float runGraceTime = 0.05f;
 
+    [Header("Attack")]
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private float attackRange = 0.8f;
+    [SerializeField] private float attackOffset = 0.7f;
+    [SerializeField] private LayerMask enemyLayer = ~0;
+
     private Rigidbody2D rb;
     private float moveInput;
     private bool jumpRequest;
@@ -45,6 +51,7 @@ public partial class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleInput();
+        HandleAttack();
     }
 
     private void FixedUpdate()
