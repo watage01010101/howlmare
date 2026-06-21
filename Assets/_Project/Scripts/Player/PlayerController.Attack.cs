@@ -34,9 +34,11 @@ public partial class PlayerController
     {
         Keyboard keyboard = Keyboard.current;
         Gamepad gamepad = Gamepad.current;
+        Mouse mouse = Mouse.current;
 
         return (keyboard != null && keyboard.jKey.wasPressedThisFrame)
-            || (gamepad != null && gamepad.buttonWest.wasPressedThisFrame);
+            || (gamepad != null && gamepad.buttonWest.wasPressedThisFrame)
+            || (mouse != null && mouse.leftButton.wasPressedThisFrame);
     }
 
     private void OnDrawGizmosSelected()
