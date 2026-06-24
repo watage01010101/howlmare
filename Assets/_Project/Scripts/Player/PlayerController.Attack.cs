@@ -3,6 +3,12 @@ using UnityEngine.InputSystem;
 
 public partial class PlayerController
 {
+    [SerializeField] private bool showAttackHitbox = true;
+    [SerializeField] private float attackHitboxDisplayTime = 0.3f;
+
+    private Vector2 lastAttackCenter;
+    private float lastAttackTime;
+
     private void HandleAttack()
     {
         if (!WasAttackPressedThisFrame())
@@ -22,6 +28,9 @@ public partial class PlayerController
                 enemyHealth.TakeDamage(attackDamage);
             }
         }
+
+        lastAttackCenter = attackCenter;
+        lastAttackTime = Time.time;
     }
 
     private Vector2 GetAttackCenter()
@@ -46,4 +55,27 @@ public partial class PlayerController
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(GetAttackCenter(), attackRange);
     }
+
+    private void OnDrawGizmos()
+        {
+            if (!showAttackHitbox)
+            {
+                return;
+            }
+
+            if (Application.isPlaying)
+            {
+                if (Time.time - lastAttackTime > attackHitboxDisplayTime)
+                {
+                    return;
+                }
+
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(lastAttackCenter, attackRange);
+                return;
+            }
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(GetAttackCenter(), attackRange);
+        }
 }
